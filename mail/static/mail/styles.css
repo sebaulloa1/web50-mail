@@ -1,0 +1,39 @@
+textarea {
+    min-height: 300px;
+}
+
+.email-div {
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 5px 5px;
+    border-collapse: collapse;
+    height: 40px;
+    width: 100%;
+    text-align: left;
+}
+
+#email-details div { 
+    margin-bottom: 4px;
+}
+
+.login {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.login-input {
+    width: 50%;
+    margin-left: 25%;
+}
+
+
+.alert {
+    display: none;
+    position: absolute;
+    margin-left: 40%;
+    margin-top: 1.5%;
+    width: 350px;
+    height: auto;
+    font-weight: bold;
+    text-align: center;
+}
