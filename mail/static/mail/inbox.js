@@ -83,29 +83,34 @@ function load_mailbox(mailbox) {
   .then(response => response.json())
   .then(emails => {
       // Iterate over every email
-      for (email of emails) {
-        let email_div = document.createElement('div'); // Create a div for each email
-       
-        if (mailbox === 'inbox'){  // Condition for inbox 
-          email_div.innerHTML = `
-            <div style="font-weight:bold;width:25%;float:left;">${email.sender}</div> <div style="float:left;width:30%;">${email.subject}</div> <div style="float:right;width:30%;text-align:right;color:gray;">${email.timestamp}</div>
-              `;
-          if (email.read) {
-            email_div.style.background = '#cccccc';
+      console.log(emails)
+      if (emails.length === 0) {
+        document.querySelector('#emails-view').innerHTML += `Your inbox is empty`;
+      } else {
+        for (email of emails) {
+          let email_div = document.createElement('div'); // Create a div for each email
+        
+          if (mailbox === 'inbox'){  // Condition for inbox 
+            email_div.innerHTML = `
+              <div style="font-weight:bold;width:25%;float:left;">${email.sender}</div> <div style="float:left;width:30%;">${email.subject}</div> <div style="float:right;width:30%;text-align:right;color:gray;">${email.timestamp}</div>
+                `;
+            if (email.read) {
+              email_div.style.background = '#cccccc';
+            }
+          } else if (mailbox === 'sent') {
+            email_div.innerHTML = `
+              <div style="font-weight:bold;width:25%;float:left;">${email.recipients}</div> <div style="float:left;width:30%;">${email.subject}</div> <div style="float:right;width:30%;text-align:right;color:gray;">${email.timestamp}</div>
+                `;
+          } else if (mailbox === 'archive') {
+            email_div.innerHTML = `
+              <div style="font-weight:bold;width:25%;float:left;">${email.sender}</div> <div style="float:left;width:30%;">${email.subject}</div> <div style="float:right;width:30%;text-align:right;color:gray;">${email.timestamp}</div>
+                `;
           }
-        } else if (mailbox === 'sent') {
-          email_div.innerHTML = `
-            <div style="font-weight:bold;width:25%;float:left;">${email.recipients}</div> <div style="float:left;width:30%;">${email.subject}</div> <div style="float:right;width:30%;text-align:right;color:gray;">${email.timestamp}</div>
-              `;
-        } else if (mailbox === 'archive') {
-          email_div.innerHTML = `
-            <div style="font-weight:bold;width:25%;float:left;">${email.sender}</div> <div style="float:left;width:30%;">${email.subject}</div> <div style="float:right;width:30%;text-align:right;color:gray;">${email.timestamp}</div>
-              `;
-        }
-        email_div.id = email.id
-        email_div.className = 'email-div'; // Add css class
+          email_div.id = email.id
+          email_div.className = 'email-div'; // Add css class
 
-        document.querySelector('#emails-view').appendChild(email_div); // Add the div to the container
+          document.querySelector('#emails-view').appendChild(email_div); // Add the div to the container
+        }
       }
       document.querySelectorAll('.email-div').forEach(email => {
         email.addEventListener('click', function() {
